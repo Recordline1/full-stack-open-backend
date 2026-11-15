@@ -1,9 +1,11 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 
 const app = express();
-
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
+app.use(express.static('dist'))
 
 
 morgan.token('body', (req) => {
@@ -31,7 +33,7 @@ let persons = [
     {
         "id": "4",
         "name": "Mary Poppendieck",
-        "number": "39-23-6423122"
+        "number": "39-23-6423123"
     }
 ]
 
@@ -96,7 +98,8 @@ app.delete('/api/persons/:id', (req, res) => {
     res.status(204).end()
 
 })
+const PORT = process.env.PORT || 3001
 
-app.listen(3001, () => {
-    console.log('Example app listening on http://localhost:3001/api/persons');
+app.listen(PORT, () => {
+    console.log(`Example app listening on http://localhost:${PORT}/api/persons`);
 });
