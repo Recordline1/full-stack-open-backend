@@ -14,7 +14,7 @@ content-type: application/json
     "number": "123-456-7890"
 }
 ###
-DELETE http://localhost:3001/api/persons/1
+DELETE http://localhost:3001/api/persons/6b00147a5c8db38761562b86
 ###
 
 

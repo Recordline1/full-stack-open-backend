@@ -37,23 +37,15 @@ app.get('/api/persons/:id', (req, res) => {
                 res.status(404).end()
             }
         })
+        .chatch(error => {
+            console.log(error)
+            response.status(400).send({ error: 'malformatted id' })
+        })
 })
 
 
 app.post('/api/persons', (req, res) => {
-    const body = req.body
-    // const existingPerson = Persons.find(p => p.name === body.name)
-    // if (existingPerson) {
-    //     return res.status(400).json({
-    //         error: 'name must be unique'
-    //     })
-    // }
-    // if (!body.name || !body.number) {
-    //     return res.status(400).json({ error: 'name and number are required' })
-    // }
-    // if (Persons.find(p => p.name === body.name)) {
-    //     return res.status(400).json({ error: 'name must be unique' })
-    // }
+    const body = req.body 
 
     const person = new Persons({
         name: body.name,
@@ -68,13 +60,14 @@ app.post('/api/persons', (req, res) => {
 
 app.delete('/api/persons/:id', (req, res) => {
     const id = req.params.id
-    const person = persons.find(p => p.id === id)
-    if (!person) {
-        return res.status(404)
-            .json({ error: `Person with id ${id} not found` })
-    }
-    persons = persons.filter(p => p.id !== id)
-    res.status(204).end()
+    Persons.findByIdAndDelete(id)
+        .then(result => {
+            res.status(204).end()
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(400).send({ error: 'malformatted id' })
+        })
 
 })
 const PORT = process.env.PORT || 3001
