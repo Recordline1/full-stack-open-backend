@@ -3,6 +3,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const mongoose = require('mongoose')
+const Person = require('./models/person')
+
 
 if (process.argv.length < 3) {
   console.log('give password as argument')
@@ -13,17 +15,7 @@ const password = process.argv[2]
 const name = process.argv[3]
 const number = process.argv[4]
 
-const url = `mongodb+srv://firstuser:${password}@cluster0.raufk7c.mongodb.net/phonebookApp?retryWrites=true&w=majority&appName=Cluster0`
 
-mongoose.set('strictQuery', false)
-mongoose.connect(url, { family: 4 })
-
-const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-})
-
-const Person = mongoose.model('Person', personSchema)
 
 if (process.argv.length === 3) {
   Person.find({}).then(result => {
@@ -44,8 +36,8 @@ if (process.argv.length === 3) {
     mongoose.connection.close()
   })
 } else {
-   console.log('usage: node mongo.js <password> [<name> <number>]')
- mongoose.connection.close()
+  console.log('usage: node mongo.js <password> [<name> <number>]')
+  mongoose.connection.close()
 }
 
 
