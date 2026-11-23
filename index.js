@@ -29,31 +29,31 @@ app.get('/api/info', (req, res) => {
 })
 
 app.get('/api/persons/:id', (req, res) => {
-   Persons.findById(req.params.id)
-   .then(person => {
-       if (person) {
-           res.json(person)
-       } else {
-              res.status(404).end()
-       }    
-})
+    Persons.findById(req.params.id)
+        .then(person => {
+            if (person) {
+                res.json(person)
+            } else {
+                res.status(404).end()
+            }
+        })
 })
 
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
-    const existingPerson = Persons.find(p => p.name === body.name)
-    if (existingPerson) {
-        return res.status(400).json({
-            error: 'name must be unique'
-        })
-    }
-    if (!body.name || !body.number) {
-        return res.status(400).json({ error: 'name and number are required' })
-    }
-    if (Persons.find(p => p.name === body.name)) {
-        return res.status(400).json({ error: 'name must be unique' })
-    }
+    // const existingPerson = Persons.find(p => p.name === body.name)
+    // if (existingPerson) {
+    //     return res.status(400).json({
+    //         error: 'name must be unique'
+    //     })
+    // }
+    // if (!body.name || !body.number) {
+    //     return res.status(400).json({ error: 'name and number are required' })
+    // }
+    // if (Persons.find(p => p.name === body.name)) {
+    //     return res.status(400).json({ error: 'name must be unique' })
+    // }
 
     const person = new Persons({
         name: body.name,
