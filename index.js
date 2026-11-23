@@ -15,7 +15,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
 
 
 app.get('/api/persons', (req, res) => {
-    Persons.find({}).then(persons =>{
+    Persons.find({}).then(persons => {
         res.json(persons)
     })
 })
@@ -23,19 +23,20 @@ app.get('/api/info', (req, res) => {
 
     const date = new Date()
     res.send(`
-        <p>Phonebook has info for ${persons.length} people</p>
+        <p>Phonebook has info for ${Persons.length} people</p>
         <p>${date}</p>
     `)
 })
 
 app.get('/api/persons/:id', (req, res) => {
-    const id = req.params.id
-    const person = Persons.find(p => p.id === id)
-    if (person) {
-        res.json(person)
-    } else {
-        res.status(404).send(`Person with id ${id} not found`)
-    }
+   Persons.findById(req.params.id)
+   .then(person => {
+       if (person) {
+           res.json(person)
+       } else {
+              res.status(404).end()
+       }    
+})
 })
 
 
@@ -54,7 +55,7 @@ app.post('/api/persons', (req, res) => {
         return res.status(400).json({ error: 'name must be unique' })
     }
 
-    const person = new Persons( {
+    const person = new Persons({
         name: body.name,
         number: body.number
     })
