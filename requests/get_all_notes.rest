@@ -17,5 +17,13 @@ content-type: application/json
 DELETE http://localhost:3001/api/persons/6b00147a5c8db38761562b86
 ###
 
+PUT http://localhost:3001/api/persons/6b00147a5c8db38761562b86
+content-type: application/json
+
+{
+    "name": "John Doe",
+    "number": "987-654-3210"
+}
+
 
 
