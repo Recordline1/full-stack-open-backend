@@ -1,0 +1,28 @@
+
+
+GET http://localhost:3001/api/persons
+###
+GET http://localhost:3001/api/persons/6b00170271e9bfa91e2fefaa
+###
+GET http://localhost:3001/api/info
+###
+POST http://localhost:3001/api/persons/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "John Doe",
+    "number": "123-456-7890"
+}
+###
+DELETE http://localhost:3001/api/persons/6b00170271e9bfa91e2fefaa
+###
+
+PUT http://localhost:3001/api/persons/6b001bc581bdbd66c65f2391
+
+{
+    "name": "John Doe",
+    "number": "1"
+}
+
+
+
